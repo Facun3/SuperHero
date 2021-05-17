@@ -6,6 +6,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.example.herolist.databinding.ItemHeroBinding
 import com.squareup.picasso.Picasso
 import org.w3c.dom.Text
 
@@ -25,17 +26,14 @@ class HeroAdapter(
     override fun getItemCount(): Int = heroes.size
 
     class HeroHolder(private val view: View): RecyclerView.ViewHolder(view){
-        //Ver como hacer un binding para ahorrarme esto...
-        private val tvRealName: TextView = view.findViewById(R.id.tvRealName)
-        private val tvHeroName: TextView = view.findViewById(R.id.tvHeroName)
-        private val tvPublisher: TextView = view.findViewById(R.id.tvPublisher)
-        val imageHero: ImageView = view.findViewById(R.id.imageHero)
+
+        val binding =  ItemHeroBinding.bind(view)
 
         fun render(hero: Hero){
-            tvHeroName.text = hero.heroName
-            tvRealName.text = hero.realName
-            tvPublisher.text = hero.publisher
-            Picasso.get().load(hero.image).into(imageHero)
+            binding.tvHeroName.text = hero.heroName
+            binding.tvRealName.text = hero.realName
+            binding.tvPublisher.text = hero.publisher
+            Picasso.get().load(hero.image).into(binding.imageHero)
             view.setOnClickListener{ Toast.makeText(view.context,"Has seleccionado:${hero.heroName}", Toast.LENGTH_SHORT ).show()}
         }
 
